@@ -28,8 +28,25 @@ namespace ChristmasTree.Tests
 
             var expected = new List<string>
             {
-                INDENT+" *",
-                INDENT+"***"
+                INDENT+"*",
+                INDENT+"*"
+            };
+
+            string output = ChristmasTreeKata.Program.GenerateChristmasTree(input);
+            Assert.AreEqual(string.Join(Environment.NewLine, expected), output);
+        }
+
+        [Test]
+        public void should_generate_tree_4()
+        {
+            int input = 4;
+
+            var expected = new List<string>
+            {
+                INDENT+"  *",
+                INDENT+" ***",
+                INDENT+"*****",
+                INDENT+"  *"
             };
 
             string output = ChristmasTreeKata.Program.GenerateChristmasTree(input);
@@ -43,12 +60,12 @@ namespace ChristmasTree.Tests
 
             var expected = new List<string>
             {
-                INDENT+"     *",
-                INDENT+"    ***",
-                INDENT+"   *****",
-                INDENT+"  *******",
-                INDENT+" *********",
-                INDENT+"***********"
+                INDENT+"    *",
+                INDENT+"   ***",
+                INDENT+"  *****",
+                INDENT+" *******",
+                INDENT+"*********",
+                INDENT+"    *"
             };
 
             string output = ChristmasTreeKata.Program.GenerateChristmasTree(input);

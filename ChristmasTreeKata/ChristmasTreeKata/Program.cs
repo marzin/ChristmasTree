@@ -8,6 +8,7 @@ namespace ChristmasTreeKata
 {
     public static class Program
     {
+        private const char STAR = 'X';
         private const char LEAF = '*';
         private const string INDENT = "     ";
 
@@ -20,20 +21,25 @@ namespace ChristmasTreeKata
                 int.TryParse(args.FirstOrDefault(), out height);
             }
 
-            Console.WriteLine(GenerateChristmasTree(height));
+            Console.WriteLine(GenerateChristmasTree(height, star: true));
         }
 
-        public static string GenerateChristmasTree(int height)
+        public static string GenerateChristmasTree(int height, bool star = false)
         {
-            return Enumerable.Range(start: 1, count: height)
-                .Select(x => GenerateLevel(x, height, LEAF))
-                .Aggregate((l1, l2) => l1 + Environment.NewLine + l2);
+            return Enumerable.Range(start: star ? 0 : 1, count: star ? height + 1 : height)
+                .Select(x => GenerateLevel(x, height, LEAF, star, STAR, INDENT))
+                .Aggregate((x, y) => x + Environment.NewLine + y);
         }
 
-        private static string GenerateLevel(int iter, int height, char leaf)
+        private static string GenerateLevel(int iter, int height, char leaf, bool displayStar, char star, string indent)
         {
-            return INDENT
-                + new string(' ', height - iter)
+            if (iter == height || iter == 0)
+                return indent
+                    + new string(' ', Math.Max(0, height - 2))
+                    + (iter == 0 ? star : leaf);
+
+            return indent
+                + new string(' ', height - iter - 1)
                 + new string(leaf, iter * 2 - 1);
         }
     }
