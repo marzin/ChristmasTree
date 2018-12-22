@@ -21,7 +21,11 @@ namespace ChristmasTreeKata
                 int.TryParse(args.FirstOrDefault(), out height);
             }
 
+            Console.WriteLine("Functionnal Method");
             Console.WriteLine(GenerateChristmasTree(height, star: true));
+
+            Console.WriteLine("Recursive Method");
+            Console.WriteLine(GenerateTreeRec());
         }
 
         public static string GenerateChristmasTree(int height, bool star = false)
@@ -41,6 +45,34 @@ namespace ChristmasTreeKata
             return indent
                 + new string(' ', height - iter - 1)
                 + new string(leaf, iter * 2 - 1);
+        }
+
+
+        private static string GenerateTreeRec(int iter = 0, int height = 5, char leaf = '*', bool displayStar = true, char star = 'X', string indent = "     ", string Acc = "")
+        {
+            string level = "";
+            if (iter == height)
+                return Acc
+                        + indent
+                        + new string(' ', Math.Max(0, height - 2))
+                        + leaf;
+
+            if (iter == 0)
+            {
+                level = indent
+                    + new string(' ', Math.Max(0, height - 2))
+                    + star
+                    + Environment.NewLine;
+            }
+            else
+            {
+                level = indent
+                    + new string(' ', height - iter - 1)
+                    + new string(leaf, iter * 2 - 1)
+                    + Environment.NewLine;
+            }
+
+            return GenerateTreeRec(iter + 1, height, leaf, displayStar, star, indent, Acc + level);
         }
     }
 }
